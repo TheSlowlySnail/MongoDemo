@@ -10,6 +10,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 
 public class NewInsertDriver {
 
@@ -18,9 +19,11 @@ public class NewInsertDriver {
 		MongoDatabase db = mongoClient.getDatabase("helge");
 		MongoCollection<Document> collection = db.getCollection("adresses");
 		MongoCursor<Document> cursor = collection.find().iterator();
-		//collection.findOneAndUpdate(new Document("name", "Helge"), new Document("name","Ina"));
-		collection.findOneAndReplace(new Document("name", "Helge"), new Document("name","Ina"));
+		collection.findOneAndUpdate(new Document("name", "Ina"), new Document("$set", new Document("name", "Ina Wehrle")));
+		
+		//collection.findOneAndReplace(new Document("name", "Ina"), new Document("name","Ina").append("alter", 19));
 		//collection.deleteMany(new Document("name", "helge"));
+		
 		int count = 0;
 		
 		while (cursor.hasNext()) {
